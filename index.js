@@ -1,11 +1,12 @@
+const puppeteer = require("puppeteer");
 const puppeteerExtra = require("puppeteer-extra");
 const RecaptchaPlugin = require("puppeteer-extra-plugin-recaptcha");
 require('dotenv').config();
 
 
-const websiteURL = process.env.WEBSITE.toString();
-const userEmail = process.env.EMAIL.toString();
-const userPassword = process.env.PASSWORD.toString();
+const websiteURL = process.env.WEBSITE;
+const userEmail = process.env.EMAIL;
+const userPassword = process.env.PASSWORD;
 const capId = process.env.CAP_ID;
 const capToken = process.env.CAP_TOKEN;
 
@@ -18,15 +19,15 @@ puppeteerExtra.use(
     },
     visualFeedBack: true
   })
-)
+);
 
 
-const doSomething = async () => {
+(async () => {
   const browser = await puppeteerExtra.launch({ headless: false });
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080 })
 
-  await page.goto(websiteURL);
+  await page.goto(`${websiteURL}/auth`);
   await page.waitForSelector(".mdl-button");
 
   await page.type("#email", userEmail);
@@ -44,18 +45,21 @@ const doSomething = async () => {
 
   await btn.click();
 
-  await page.goto(`${websiteURL}/ideas`);
+  await page.waitForNavigation();
 
-  const btns = await page.$$("button");
+  await page.goto(`${websiteURL}/my/ideas`);
 
-  for (const bt of btns) {
-    const buttonClass = await bt.evaluate(el => console.log(el))
-    console.log(buttonClass)
+  await page.waitForSelector(".mdl-button--disabled");
+
+  const activeBtns = await page.$$(".mdl-button--disabled");
+
+  for (const t of activeBtns) {
+    await t.click();
+    await t.click();
   }
 
+  await page.screenshot({ path: `pic.png` });
 
-  await page.screenshot({ path: "pic.png" });
-  await browser.close()
-}
 
-doSomething();
+  await browser.close();
+})();
