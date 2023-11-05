@@ -4,15 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "bun ./index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.8.10",
+    "@types/puppeteer": "^7.0.4",
     "dotenv": "^16.3.1",
     "puppeteer": "^21.5.0",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-recaptcha": "^3.6.8"
+    "puppeteer-extra-plugin-recaptcha": "^3.6.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
