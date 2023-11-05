@@ -1,0 +1,25 @@
+{
+  "name": "tg-bot",
+  "version": "0.0.1",
+  "license": "ISC",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun --watch index.ts"
+  },
+  "devDependencies": {
+    "@telegraf/types": "^6.9.1",
+    "bun-types": "^1.0.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3",
+    "telegraf": "^4.15.0",
+    "uuid": "^9.0.1"
+  }
+}
